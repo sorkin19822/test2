@@ -26,15 +26,16 @@ if($verify){
     $decriptRequestData = unserialize($decriptRequestData);
     //insert user into database
     $crud = new Crud();
-    $res = $crud->insert('wallet_user111',$decriptRequestData);
+    $res = $crud->insert('wallet_user',$decriptRequestData); 
     if($res=='success'){
-    die(json_encode(["status" => "success", "description" => "Спасибо, Ваши данные приняты",
+    die(json_encode(["status" => "success", "description" => ["Спасибо, Ваши данные приняты"],
         "data"=>$decriptRequestData]));
     }else{
-        die(json_encode(["status" => "error", "description" => "Транзакция неуспешна повторите позже попытку "]));
+        die(json_encode(["status" => "error", "description" => ["Транзакция неуспешна повторите позже попытку "]]));
     }
 }else{
-    die(json_encode(["status" => "error", "description" => "Ваши данные испорчены"]));
+
+    die(json_encode(["status" => "error", "description" => ["Ваши данные испорчены"]]));
 }
 
 
