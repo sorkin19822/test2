@@ -19,6 +19,12 @@ public function __construct()
     return $this->conn = DriverManager::getConnection($this->connectionParams, $config);
 }
 
+    /**
+     * @param $tableName
+     * @param array $arrayData
+     * @return string
+     * @throws \Doctrine\DBAL\ConnectionException
+     */
 public function insert($tableName,array $arrayData){
     $this->conn->beginTransaction();
     try{

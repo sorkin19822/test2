@@ -35,17 +35,27 @@ class Helpers
         $this->private_key = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/keys/rsa_2048_priv.pem');
     }
 
+    /**
+     * @param array $json
+     */
     public function loadData(array $json){
         $this->data = base64_decode($json['data']);
         $this->signature = urldecode($json['signature']);
     }
 
+    /**
+     * @return string
+     */
     public function getDecriptData(){
         $this->rsa->loadKey($this->private_key);
         $this->rsa->setEncryptionMode(RSA::ENCRYPTION_PKCS1);
        return $this->rsa->decrypt($this->data);
     }
 
+    /**
+     * @param $requestSignature
+     * @return bool
+     */
     public function verifySignature($requestSignature){
         $this->rsa->loadKey($this->publik_key);
         $this->rsa->setSignatureMode(RSA::SIGNATURE_PKCS1);
